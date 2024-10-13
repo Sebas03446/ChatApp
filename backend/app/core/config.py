@@ -1,4 +1,5 @@
 from pydantic_settings import BaseSettings
+from pydantic import ConfigDict
 from typing import List, Union
 
 class Settings(BaseSettings):
@@ -8,7 +9,6 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "local"  
     CORS_ORIGINS: List[str] = ["http://localhost:8080"]  
 
-    class Config:
-        env_file = ".env" 
+    model_config = ConfigDict(env_file=".env") 
 
 settings = Settings()
