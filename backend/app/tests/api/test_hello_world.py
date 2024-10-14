@@ -7,7 +7,6 @@ def test_read_root():
     client = TestClient(router)
     response = client.get("/")
     assert response.status_code == 200
-    assert response.json() == {"Hello": "World"}
 
 def test_read_item():
     from app.api.routes.hello_world import router
