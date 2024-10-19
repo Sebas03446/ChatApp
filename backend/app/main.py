@@ -1,4 +1,3 @@
-# app/main.py
 import sentry_sdk
 from fastapi import FastAPI
 from fastapi.routing import APIRoute

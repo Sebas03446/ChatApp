@@ -40,12 +40,17 @@ def test_chat_with_mistral_specialization_not_found(setup_database):
 
 def test_chat_with_mistral_specialization_found(setup_database):
     client = TestClient(router)
+    mock_Session = patch("app.api.routes.chat.Session").start()
+    mock_Session.return_value = Test_session()
+    
+    db = Test_session()
+    new_specialization = Specialization(name="Mistral_traduction", description="Mistral traduction", initialPrompt="What is Mistral traduction?")
+    db.add(new_specialization)
+    db.commit()
+    
     mock_get_chat_response = patch("app.api.routes.chat.get_chat_response").start()
     mock_get_chat_response.return_value = json.dumps({"message": "Hello", "specialization": "Mistral_traduction"})
 
-    db = Test_session()
-    db.add(Specialization(name="Mistral_traduction", description="Mistral Specialization", initialPrompt="Hi you are a professional translator"))
-    db.commit()
 
     response = client.post("/chat", json={"message": "Hello", "specialization": "Mistral_traduction"})
     assert response.status_code == 200
