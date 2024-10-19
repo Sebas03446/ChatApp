@@ -43,7 +43,7 @@ fastapi run app/main.py
 ## Testing
 1. Run the tests
 ```bash
-pytest backend/app/tests/api/
+pytest app/tests/api/
 ```
 ## Documentation
 1. Open the browser and navigate to `http://localhost:8000/docs`
