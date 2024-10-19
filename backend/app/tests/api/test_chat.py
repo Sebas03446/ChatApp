@@ -1,5 +1,5 @@
 from fastapi.testclient import TestClient
-from app.core.config.database import Session, Base, engine
+from app.core.config.database import Test_session, Base, test_engine
 import pytest
 from app.api.routes.chat import router
 from app.api.models.specialization import Specialization
@@ -11,9 +11,9 @@ import json
 
 @pytest.fixture(scope="module")
 def setup_database():
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=test_engine)
     yield
-    Base.metadata.drop_all(bind=engine)
+    Base.metadata.drop_all(bind=test_engine)
 
 def test_chat_with_mistral_ok():
     client = TestClient(router)
@@ -43,7 +43,7 @@ def test_chat_with_mistral_specialization_found(setup_database):
     mock_get_chat_response = patch("app.api.routes.chat.get_chat_response").start()
     mock_get_chat_response.return_value = json.dumps({"message": "Hello", "specialization": "Mistral_traduction"})
 
-    db = Session()
+    db = Test_session()
     db.add(Specialization(name="Mistral_traduction", description="Mistral Specialization", initialPrompt="Hi you are a professional translator"))
     db.commit()
 

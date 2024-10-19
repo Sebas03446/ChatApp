@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 from app.api.routes.specialization import router
-from app.core.config.database import Session, Base, engine
+from app.core.config.database import Base, test_engine
 from app.api.models.specialization import Specialization
 import pytest
 
@@ -8,9 +8,9 @@ client = TestClient(router)
 
 @pytest.fixture(scope="module")
 def setup_database():
-    Base.metadata.create_all(bind=engine)
+    Base.metadata.create_all(bind=test_engine)
     yield
-    Base.metadata.drop_all(bind=engine)
+    Base.metadata.drop_all(bind=test_engine)
 
 def test_create_specialization_ok(setup_database):
     response = client.post("/specialization", json={
