@@ -18,13 +18,24 @@ cd backend
 ```
 3. Create a virtual environment
 ```bash
-python -m venv venv
+python3 -m venv venv
 ```
-4. Install the dependencies
+4. Activate the virtual environment
+```bash
+source venv/bin/activate
+```
+
+5. Install the dependencies
 ```bash
 pip install -r requirements.txt
 ```
-3. Run the FastAPI server
+
+6. Set up the Mistral API key
+```bash
+export MISTRAL_API_KEY=your_api_key_here
+```
+
+7. Run the FastAPI server
 ```bash
 fastapi run app/main.py
 ```
