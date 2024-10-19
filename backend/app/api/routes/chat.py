@@ -20,7 +20,7 @@ async def chat_with_mistral(request: ChatRequest):
     if request.specialization:
         db = Session()
         specialization = db.query(Specialization).filter(Specialization.name == request.specialization).first()
-        print(specialization, "specialization")
+
         if not specialization:
             raise HTTPException(status_code=404, detail="Specialization not found")
         

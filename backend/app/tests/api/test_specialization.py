@@ -1,7 +1,6 @@
 from fastapi.testclient import TestClient
 from app.api.routes.specialization import router
 from app.core.config.database import Base, test_engine
-from app.api.models.specialization import Specialization
 import pytest
 
 client = TestClient(router)
